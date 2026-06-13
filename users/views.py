@@ -21,7 +21,9 @@ class UserListCreate(APIView):
 
         # Search functionality
         if search:
-            users = users.filter(name__icontains=search)
+            users = users.filter(
+            Q(name__icontains=search) |
+            Q(email__icontains=search)
 
         # Pagination
         page = request.GET.get('page', 1)
